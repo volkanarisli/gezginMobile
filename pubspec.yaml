@@ -20,6 +20,9 @@ dependencies:
   latlong:
   flutter_map:
   font_awesome_flutter:
+  geolocation:
+  location:
+  geolocator:
   flutter:
     sdk: flutter
 

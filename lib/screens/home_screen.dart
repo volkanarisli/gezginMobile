@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../widgets/destination_carousel.dart';
 import '../widgets/hotel_carousel.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:geolocation/geolocation.dart';
 
 class HomeScreen extends StatefulWidget {
   static const routeName = '/home_screen';
@@ -49,6 +50,16 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    getPermission() async {
+      final GeolocationResult result =
+          await Geolocation.requestLocationPermission(
+              permission: const LocationPermission(
+        android: LocationPermissionAndroid.fine,
+        ios: LocationPermissionIOS.always,
+      ));
+      return result;
+    }
+
     return Scaffold(
       body: SafeArea(
         child: ListView(
@@ -82,7 +93,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-      
     );
   }
 }
