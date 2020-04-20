@@ -23,6 +23,7 @@ dependencies:
   geolocation:
   location:
   geolocator:
+  map_controller:
   flutter:
     sdk: flutter
 

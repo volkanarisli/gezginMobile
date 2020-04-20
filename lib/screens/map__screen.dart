@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import './tabs_screen.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
+import 'package:map_controller/map_controller.dart';
+import '../models/cityroute_model.dart';
 
 import 'package:geolocator/geolocator.dart';
 
@@ -13,60 +15,39 @@ class MapScreen extends StatefulWidget {
 
 class _MapScreenState extends State<MapScreen> {
   var points = <LatLng>[
-    new LatLng(35.22, -101.83),
-    new LatLng(32.77, -96.79),
-    new LatLng(29.76, -95.36),
-    new LatLng(29.42, -98.49),
-    new LatLng(35.22, -101.83),
+    new LatLng(41.076717, 28.949108),
+    new LatLng(41.067911, 28.945787),
+    new LatLng(41.059441, 28.949312),
+    // new LatLng(29.42, -98.49),
+    // new LatLng(35.22, -101.83),
   ];
 
-  // MapController controller = new MapController();
-  // getPermission() async {
-  //   final GeolocationResult result =
-  //       await Geolocation.requestLocationPermission(
-  //           permission: const LocationPermission(
-  //     android: LocationPermissionAndroid.fine,
-  //     ios: LocationPermissionIOS.always,
-  //   ));
-  //   return result;
-  // }
-
-  // getLocation() {
-  //   getPermission().then((result) async {
-  //     if (result.isSuccesful()) {
-  //       final coords =
-  //           await Geolocation.currentLocation(accuracy: LocationAccuracy.best);
-  //     }
-  //   });
-  // }
-
-  // buildMap() {
-  //   getLocation().then((response) {
-  //     if (response.isSuccesful) {
-  //       response.listen((value) {
-  //         controller.move(
-  //             new LatLng(value.location.latitude, value.loation.longitude),
-  //             15.0);
-  //       });
-  //     }
-  //   });
-  // }
+  MapController controller = new MapController();
   LatLng _myLocation = new LatLng(41.067911, 28.945787);
+  buildMap(LatLng location) {
+    controller.move(location, 15.0);
+  }
+
   void getCurrentLocation() async {
     var position = await Geolocator()
         .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
     print(position);
-
+    print(_myLocation);
     setState(() {
       // _myLocation = "${position.latitude}, ${position.longitude}";
       _myLocation = new LatLng(position.latitude, position.longitude);
+
+      print(_myLocation);
     });
+    buildMap(_myLocation);
   }
 
   void initState() {
-    super.initState();
     // NOTE: Calling this function here would crash the app.
+
     getCurrentLocation();
+
+    super.initState();
   }
 
   @override
@@ -74,6 +55,7 @@ class _MapScreenState extends State<MapScreen> {
     return Scaffold(
         appBar: new AppBar(title: new Text('KEŞFET')),
         body: new FlutterMap(
+            mapController: controller,
             options: new MapOptions(center: _myLocation, minZoom: 15.0),
             layers: [
               new TileLayerOptions(
@@ -84,7 +66,7 @@ class _MapScreenState extends State<MapScreen> {
                 new Marker(
                     width: 45.0,
                     height: 45.0,
-                    point: LatLng(41.067911, 28.945787),
+                    point: _myLocation,
                     builder: (context) => new Container(
                           child: IconButton(
                             icon: Icon(Icons.person_pin),
@@ -98,7 +80,7 @@ class _MapScreenState extends State<MapScreen> {
               ]),
               new PolylineLayerOptions(polylines: [
                 new Polyline(
-                    points: points, strokeWidth: 5.0, color: Colors.red)
+                    points: yarimada, strokeWidth: 5.0, color: Colors.red)
               ])
             ]));
   }

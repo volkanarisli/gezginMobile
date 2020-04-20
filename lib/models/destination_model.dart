@@ -1,3 +1,5 @@
+import 'package:gezginmobile/models/cityroute_model.dart';
+
 import './activity_model.dart';
 
 class Destination {
@@ -6,7 +8,7 @@ class Destination {
   String country;
   String description;
   List<Activity> activities;
-
+  // List<cityRoute> routes;
   Destination({
     this.imageUrl,
     this.city,
