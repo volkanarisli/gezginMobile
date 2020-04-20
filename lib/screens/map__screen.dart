@@ -59,9 +59,9 @@ class _MapScreenState extends State<MapScreen> {
             options: new MapOptions(center: _myLocation, minZoom: 15.0),
             layers: [
               new TileLayerOptions(
-                  urlTemplate:
-                      'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                  subdomains: ['a', 'b', 'c']),
+                urlTemplate:
+                    "https://api.mapbox.com/styles/v1/volkanarisli/ck98y0o8j070n1io5b6wciro3/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoidm9sa2FuYXJpc2xpIiwiYSI6ImNrOThtOXM2cDA5NmszbXByd3Uyb3JveHYifQ.824CdensYZcPPR0Fgwu9xQ",
+              ),
               new MarkerLayerOptions(markers: [
                 new Marker(
                     width: 45.0,

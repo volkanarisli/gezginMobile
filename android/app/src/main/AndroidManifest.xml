@@ -9,6 +9,7 @@
         android:name="io.flutter.app.FlutterApplication"
         android:label="gezginmobile"
         android:icon="@mipmap/ic_launcher">
+        <meta-data android:name="com.mapbox.token" android:value="pk.eyJ1Ijoidm9sa2FuYXJpc2xpIiwiYSI6ImNrOThtOXM2cDA5NmszbXByd3Uyb3JveHYifQ.824CdensYZcPPR0Fgwu9xQ" />
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
