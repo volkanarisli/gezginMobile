@@ -13,10 +13,15 @@
 
 import 'package:flutter/material.dart';
 import 'package:gezginmobile/services/auth.dart';
+import '../models/user.dart';
+import '../services/auth.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
   static const routeName = '/profile-screen';
+  // final User user;
+  // ProfileScreen({this.user});
+
   _ProfileScreenState createState() => _ProfileScreenState();
 }
 
@@ -61,7 +66,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               SizedBox(height: 25.0),
               Text(
-                'Murar Orhun',
+                'volkanarisli@gmail.com',
                 style: TextStyle(
                     fontFamily: 'Montserrat',
                     fontSize: 20.0,
@@ -69,7 +74,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               SizedBox(height: 4.0),
               Text(
-                'CHINA',
+                'Turkey',
                 style: TextStyle(fontFamily: 'Montserrat', color: Colors.grey),
               ),
               Padding(
@@ -80,7 +85,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     },
                     icon: Icon(Icons.person),
                     label: Text('Logout')),
-              )
+              ),
+              // Padding(
+              //   padding: EdgeInsets.all(30.0),
+              //   child: FlatButton.icon(
+              //       onPressed: () {},
+              //       icon: Icon(Icons.person),
+              //       label: Text('Kullanıcı')),
+              // )
               // Padding(
               //   padding: EdgeInsets.all(30.0),
               //   child: Row(
