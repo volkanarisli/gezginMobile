@@ -1,3 +1,6 @@
+import 'package:gezginmobile/models/cityroute_model.dart';
+import 'package:latlong/latlong.dart';
+
 class Activity {
   String imageUrl;
   String name;
@@ -5,6 +8,7 @@ class Activity {
   List<String> startTimes;
   int rating;
   int price;
+  List<LatLng> route;
 
   Activity({
     this.imageUrl,
@@ -13,5 +17,6 @@ class Activity {
     this.startTimes,
     this.rating,
     this.price,
+    this.route
   });
 }

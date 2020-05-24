@@ -10,7 +10,7 @@ class TabsScreen extends StatefulWidget {
 
 class _State extends State<TabsScreen> {
   final List<Map<String, Object>> _pages = [
-    {'page': HomeScreen(), 'title':'Home Screen'},
+    {'page': HomeScreen(), 'title': 'Home Screen'},
     {'page': MapScreen(), 'title': 'Map Screen'},
     {'page': ProfileScreen(), 'title': 'Profile Screen'}
   ];
@@ -22,40 +22,37 @@ class _State extends State<TabsScreen> {
       _selectedPageIndex = index;
     });
   }
-  
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: _pages[_selectedPageIndex]['page'],
       bottomNavigationBar: BottomNavigationBar(
-        onTap: _selectPage,
-        currentIndex:_selectedPageIndex,
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.search,
-              size: 30.0,
+          onTap: _selectPage,
+          currentIndex: _selectedPageIndex,
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.search,
+                size: 30.0,
+              ),
+              title: SizedBox.shrink(),
             ),
-            title: SizedBox.shrink(),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.map,
-              size: 30.0,
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.map,
+                size: 30.0,
+              ),
+              title: SizedBox.shrink(),
             ),
-            title: SizedBox.shrink(),
-          ),
-          BottomNavigationBarItem(
-            icon: CircleAvatar(
-              radius: 15.0,
-              backgroundImage: NetworkImage('http://i.imgur.com/zL4Krbz.jpg'),
-            ),
-            title: SizedBox.shrink(),
-          )
-        ]
-      ),
+            BottomNavigationBarItem(
+              icon: CircleAvatar(
+                radius: 15.0,
+                backgroundImage: AssetImage('assets/images/pp.jpg'),
+              ),
+              title: SizedBox.shrink(),
+            )
+          ]),
     );
   }
 }

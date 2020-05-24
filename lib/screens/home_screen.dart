@@ -2,7 +2,13 @@ import 'package:flutter/material.dart';
 import '../widgets/destination_carousel.dart';
 import '../widgets/hotel_carousel.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:geolocation/geolocation.dart';
+import 'package:delayed_display/delayed_display.dart';
+
+import 'package:latlong/latlong.dart';
+
+import '../models/venue_model.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:meta/meta.dart';
 
 class HomeScreen extends StatefulWidget {
   static const routeName = '/home_screen';
@@ -20,6 +26,30 @@ class _HomeScreenState extends State<HomeScreen> {
     FontAwesomeIcons.walking,
     FontAwesomeIcons.biking,
   ];
+  LatLng _myLocation = new LatLng(41.067911, 28.945787);
+
+  void getCurrentLocation() async {
+    var position = await Geolocator()
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    print(position);
+    print(_myLocation);
+    setState(() {
+      // _myLocation = "${position.latitude}, ${position.longitude}";
+      _myLocation = new LatLng(position.latitude, position.longitude);
+
+      print(_myLocation);
+    });
+
+    getData(position.latitude, position.longitude);
+  }
+
+  void initState() {
+    // NOTE: Calling this function here would crash the app.
+
+    getCurrentLocation();
+
+    super.initState();
+  }
 
   Widget _buildIcon(int index) {
     return GestureDetector(
@@ -50,16 +80,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    getPermission() async {
-      final GeolocationResult result =
-          await Geolocation.requestLocationPermission(
-              permission: const LocationPermission(
-        android: LocationPermissionAndroid.fine,
-        ios: LocationPermissionIOS.always,
-      ));
-      return result;
-    }
-
     return Scaffold(
       body: SafeArea(
         child: ListView(
@@ -68,28 +88,34 @@ class _HomeScreenState extends State<HomeScreen> {
             Padding(
               padding: EdgeInsets.only(left: 20.0, right: 120.0),
               child: Text(
-                'What would you like to find?',
+                'Şuan nerede olmak istersin?',
                 style: TextStyle(
                   fontSize: 30.0,
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ),
+            // SizedBox(height: 20.0),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+            //   children: _icons
+            //       .asMap()
+            //       .entries
+            //       .map(
+            //         (MapEntry map) => _buildIcon(map.key),
+            //       )
+            //       .toList(),
+            // ),
             SizedBox(height: 20.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: _icons
-                  .asMap()
-                  .entries
-                  .map(
-                    (MapEntry map) => _buildIcon(map.key),
-                  )
-                  .toList(),
+            DelayedDisplay(
+              delay: Duration(seconds: 1),
+              child: DestinationCarousel(),
             ),
             SizedBox(height: 20.0),
-            DestinationCarousel(),
-            SizedBox(height: 20.0),
-            HotelCarousel(),
+            DelayedDisplay(
+              delay: Duration(seconds: 2),
+              child: HotelCarousel(data: data),
+            ),
           ],
         ),
       ),

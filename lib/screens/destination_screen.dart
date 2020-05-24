@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../models/activity_model.dart';
 import '../models/destination_model.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../screens/route_map_screen.dart';
 
 class DestinationScreen extends StatefulWidget {
   final Destination destination;
@@ -166,23 +167,23 @@ class _DestinationScreenState extends State<DestinationScreen> {
                                     maxLines: 2,
                                   ),
                                 ),
-                                Column(
-                                  children: <Widget>[
-                                    Text(
-                                      '\$${activity.price}',
-                                      style: TextStyle(
-                                        fontSize: 22.0,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                    Text(
-                                      'per pax',
-                                      style: TextStyle(
-                                        color: Colors.grey,
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                // Column(
+                                //   children: <Widget>[
+                                //     Text(
+                                //       '\$${activity.price}',
+                                //       style: TextStyle(
+                                //         fontSize: 22.0,
+                                //         fontWeight: FontWeight.w600,
+                                //       ),
+                                //     ),
+                                //     Text(
+                                //       'per pax',
+                                //       style: TextStyle(
+                                //         color: Colors.grey,
+                                //       ),
+                                //     ),
+                                //   ],
+                                // ),
                               ],
                             ),
                             Text(
@@ -208,18 +209,18 @@ class _DestinationScreenState extends State<DestinationScreen> {
                                   ),
                                 ),
                                 SizedBox(width: 10.0),
-                                Container(
-                                  padding: EdgeInsets.all(5.0),
-                                  width: 70.0,
-                                  decoration: BoxDecoration(
-                                    color: Theme.of(context).accentColor,
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    activity.startTimes[1],
-                                  ),
-                                ),
+                                // Container(
+                                //   padding: EdgeInsets.all(5.0),
+                                //   width: 70.0,
+                                //   decoration: BoxDecoration(
+                                //     color: Theme.of(context).accentColor,
+                                //     borderRadius: BorderRadius.circular(10.0),
+                                //   ),
+                                //   alignment: Alignment.center,
+                                //   child: Text(
+                                //     activity.startTimes[0],
+                                //   ),
+                                // ),
                               ],
                             )
                           ],
@@ -232,12 +233,20 @@ class _DestinationScreenState extends State<DestinationScreen> {
                       bottom: 15.0,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(20.0),
-                        child: Image(
-                          width: 110.0,
-                          image: AssetImage(
-                            activity.imageUrl,
+                        child: GestureDetector(
+                          onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) =>
+                                    RouteMapScreen(route: activity.route),
+                              )),
+                          child: Image(
+                            width: 110.0,
+                            image: AssetImage(
+                              activity.imageUrl,
+                            ),
+                            fit: BoxFit.cover,
                           ),
-                          fit: BoxFit.cover,
                         ),
                       ),
                     ),

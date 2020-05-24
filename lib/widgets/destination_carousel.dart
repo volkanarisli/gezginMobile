@@ -14,25 +14,25 @@ class DestinationCarousel extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Text(
-                'Top Destinations',
+                'Türkiye için şehir rotaları',
                 style: TextStyle(
                   fontSize: 22.0,
                   fontWeight: FontWeight.bold,
                   letterSpacing: 1.5,
                 ),
               ),
-              GestureDetector(
-                onTap: () => print('See All'),
-                child: Text(
-                  'See All',
-                  style: TextStyle(
-                    color: Theme.of(context).primaryColor,
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.w600,
-                    letterSpacing: 1.0,
-                  ),
-                ),
-              ),
+              // GestureDetector(
+              //   onTap: () => print('See All'),
+              //   child: Text(
+              //     'See All',
+              //     style: TextStyle(
+              //       color: Theme.of(context).primaryColor,
+              //       fontSize: 16.0,
+              //       fontWeight: FontWeight.w600,
+              //       letterSpacing: 1.0,
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         ),
@@ -74,7 +74,7 @@ class DestinationCarousel extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 Text(
-                                  '${destination.activities.length} activities',
+                                  '${destination.activities.length} Rota',
                                   style: TextStyle(
                                     fontSize: 22.0,
                                     fontWeight: FontWeight.w600,

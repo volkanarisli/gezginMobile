@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "869203056994",
+    "firebase_url": "https://gezginapp-fbc37.firebaseio.com",
+    "project_id": "gezginapp-fbc37",
+    "storage_bucket": "gezginapp-fbc37.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:869203056994:android:8edf1705380aeb367af43b",
+        "android_client_info": {
+          "package_name": "com.example.gezginmobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "869203056994-d92gp3jqd05bs41i8od5upc7cd20nrn4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDH2Ji-2hNj_k2yFbW--TssAl1kzg-cA4I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "869203056994-d92gp3jqd05bs41i8od5upc7cd20nrn4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

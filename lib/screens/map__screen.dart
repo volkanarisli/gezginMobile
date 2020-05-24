@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import './tabs_screen.dart';
+import 'package:flutter/rendering.dart';
+
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
-import 'package:map_controller/map_controller.dart';
-import '../models/cityroute_model.dart';
 
+import '../models/cityroute_model.dart';
+import '../models/venue_model.dart';
 import 'package:geolocator/geolocator.dart';
+import '../widgets/hotel_carousel.dart';
 
 class MapScreen extends StatefulWidget {
   static const routeName = '/map_screen';
@@ -40,6 +42,7 @@ class _MapScreenState extends State<MapScreen> {
       print(_myLocation);
     });
     buildMap(_myLocation);
+    getData(position.latitude, position.longitude);
   }
 
   void initState() {
@@ -53,35 +56,31 @@ class _MapScreenState extends State<MapScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: new AppBar(title: new Text('KEŞFET')),
-        body: new FlutterMap(
-            mapController: controller,
-            options: new MapOptions(center: _myLocation, minZoom: 15.0),
-            layers: [
-              new TileLayerOptions(
-                urlTemplate:
-                    "https://api.mapbox.com/styles/v1/volkanarisli/ck98y0o8j070n1io5b6wciro3/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoidm9sa2FuYXJpc2xpIiwiYSI6ImNrOThtOXM2cDA5NmszbXByd3Uyb3JveHYifQ.824CdensYZcPPR0Fgwu9xQ",
-              ),
-              new MarkerLayerOptions(markers: [
-                new Marker(
-                    width: 45.0,
-                    height: 45.0,
-                    point: _myLocation,
-                    builder: (context) => new Container(
-                          child: IconButton(
-                            icon: Icon(Icons.person_pin),
-                            color: Colors.blue,
-                            iconSize: 45.0,
-                            onPressed: () {
-                              print('Marker tapped');
-                            },
-                          ),
-                        ))
-              ]),
-              new PolylineLayerOptions(polylines: [
-                new Polyline(
-                    points: yarimada, strokeWidth: 5.0, color: Colors.red)
-              ])
-            ]));
+      body: FlutterMap(
+          mapController: controller,
+          options: new MapOptions(center: _myLocation, minZoom: 15.0),
+          layers: [
+            new TileLayerOptions(
+              urlTemplate:
+                  "https://api.mapbox.com/styles/v1/volkanarisli/ck98y0o8j070n1io5b6wciro3/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoidm9sa2FuYXJpc2xpIiwiYSI6ImNrOThtOXM2cDA5NmszbXByd3Uyb3JveHYifQ.824CdensYZcPPR0Fgwu9xQ",
+            ),
+            new MarkerLayerOptions(markers: [
+              new Marker(
+                  width: 45.0,
+                  height: 45.0,
+                  point: _myLocation,
+                  builder: (context) => new Container(
+                        child: IconButton(
+                          icon: Icon(Icons.person_pin),
+                          color: Colors.blue,
+                          iconSize: 45.0,
+                          onPressed: () {
+                            print('Marker tapped');
+                          },
+                        ),
+                      ))
+            ]),
+          ]),
+    );
   }
 }

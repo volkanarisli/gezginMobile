@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:gezginmobile/models/user.dart';
+import './screens/wrapper.dart';
 
 import './screens/map__screen.dart';
 import './screens/tabs_screen.dart';
 import './screens/home_screen.dart';
 import './screens/profile_screen.dart';
+import 'package:provider/provider.dart';
+import './services/auth.dart';
+import './models/user.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -20,12 +26,14 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/': (ctx) => TabsScreen(),
-        HomeScreen.routeName : (ctx) => HomeScreen(),
-        MapScreen.routeName : (ctx) => MapScreen(),
-        ProfileScreen.routeName : (ctx) => ProfileScreen()
+        '/': (ctx) => StreamProvider<User>.value(
+              value: AuthService().user,
+              child: Wrapper(),
+            ),
+        HomeScreen.routeName: (ctx) => HomeScreen(),
+        MapScreen.routeName: (ctx) => MapScreen(),
+        ProfileScreen.routeName: (ctx) => ProfileScreen()
       },
-      
     );
   }
 }

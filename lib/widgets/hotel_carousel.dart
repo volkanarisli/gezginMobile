@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import '../models/hotel_model.dart';
+import '../screens/map__screen.dart';
 
 class HotelCarousel extends StatelessWidget {
+  final Map data;
+
+  HotelCarousel({this.data});
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -12,7 +17,7 @@ class HotelCarousel extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Text(
-                'Exclusive Hotels',
+                'Yakınında ki güzel yerler',
                 style: TextStyle(
                   fontSize: 22.0,
                   fontWeight: FontWeight.bold,
@@ -20,9 +25,14 @@ class HotelCarousel extends StatelessWidget {
                 ),
               ),
               GestureDetector(
-                onTap: () => print('See All'),
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => MapScreen(),
+                  ),
+                ),
                 child: Text(
-                  'See All',
+                  'Gör',
                   style: TextStyle(
                     color: Theme.of(context).primaryColor,
                     fontSize: 16.0,
@@ -38,9 +48,8 @@ class HotelCarousel extends StatelessWidget {
           height: 300.0,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: hotels.length,
+            itemCount: 10,
             itemBuilder: (BuildContext context, int index) {
-              Hotel hotel = hotels[index];
               return Container(
                 margin: EdgeInsets.all(10.0),
                 width: 240.0,
@@ -62,7 +71,7 @@ class HotelCarousel extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: <Widget>[
                               Text(
-                                hotel.name,
+                                data['response']['venues'][index]['name'],
                                 style: TextStyle(
                                   fontSize: 22.0,
                                   fontWeight: FontWeight.w600,
@@ -71,19 +80,20 @@ class HotelCarousel extends StatelessWidget {
                               ),
                               SizedBox(height: 2.0),
                               Text(
-                                hotel.address,
+                                data['response']['venues'][index]['location']
+                                    ['formattedAddress'][0],
                                 style: TextStyle(
                                   color: Colors.grey,
                                 ),
                               ),
                               SizedBox(height: 2.0),
-                              Text(
-                                '\$${hotel.price} / night',
-                                style: TextStyle(
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
+                              // Text(
+                              //   '\$${hotel.price} / night',
+                              //   style: TextStyle(
+                              //     fontSize: 18.0,
+                              //     fontWeight: FontWeight.w600,
+                              //   ),
+                              // ),
                             ],
                           ),
                         ),
@@ -106,7 +116,7 @@ class HotelCarousel extends StatelessWidget {
                         child: Image(
                           height: 180.0,
                           width: 220.0,
-                          image: AssetImage(hotel.imageUrl),
+                          image: AssetImage('assets/images/location.jpg'),
                           fit: BoxFit.cover,
                         ),
                       ),
