@@ -23,7 +23,7 @@ class _RegisterState extends State<Register> {
       appBar: AppBar(
         backgroundColor: Colors.lightBlue,
         title: Text(
-          'Sign Up',
+          'Gezgin Kayıt',
           style: TextStyle(color: Colors.white),
         ),
         actions: <Widget>[
@@ -32,59 +32,68 @@ class _RegisterState extends State<Register> {
                 widget.toggleView();
               },
               icon: Icon(Icons.person),
-              label: Text('Sign In'))
+              label: Text('Giriş Yap'))
         ],
       ),
-      body: Container(
-          padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              children: <Widget>[
-                SizedBox(height: 20),
-                TextFormField(
-                  decoration: InputDecoration(hintText: 'Email',),
-                  validator: (val) => val.isEmpty ? 'Enter an Email' : null,
-                  onChanged: (val) {
-                    setState(() => email = val);
-                  },
-                ),
-                SizedBox(height: 20),
-                TextFormField(
-                  decoration: InputDecoration(hintText: 'Password'),
-                  validator: (val) => val.length < 6
-                      ? 'Enter a password 6+ char or long'
-                      : null,
-                  obscureText: true,
-                  onChanged: (val) {
-                    setState(() => password = val);
-                  },
-                ),
-                SizedBox(height: 20),
-                RaisedButton(
-                  color: Colors.lightBlueAccent,
-                  child: Text(
-                    'Sign Up',
-                    style: TextStyle(color: Colors.white),
+      body: SingleChildScrollView(
+        child: Container(
+            padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: <Widget>[
+                  SizedBox(height: 30),
+                  Image(
+                    image: AssetImage('assets/images/mask-man.png'),
+                    height: 250,
                   ),
-                  onPressed: () async {
-                    if (_formKey.currentState.validate()) {
-                      dynamic result = await _auth.registerWithEmailAndPassword(
-                          email, password);
-                      if (result == null) {
-                        setState(() => error = 'please supply a valid email');
+                  SizedBox(height: 20),
+                  TextFormField(
+                    decoration: InputDecoration(
+                      hintText: 'Email',
+                    ),
+                    validator: (val) => val.isEmpty ? 'Enter an Email' : null,
+                    onChanged: (val) {
+                      setState(() => email = val);
+                    },
+                  ),
+                  SizedBox(height: 20),
+                  TextFormField(
+                    decoration: InputDecoration(hintText: 'Password'),
+                    validator: (val) => val.length < 6
+                        ? 'Enter a password 6+ char or long'
+                        : null,
+                    obscureText: true,
+                    onChanged: (val) {
+                      setState(() => password = val);
+                    },
+                  ),
+                  SizedBox(height: 20),
+                  RaisedButton(
+                    color: Colors.lightBlueAccent,
+                    child: Text(
+                      'Sign Up',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    onPressed: () async {
+                      if (_formKey.currentState.validate()) {
+                        dynamic result = await _auth
+                            .registerWithEmailAndPassword(email, password);
+                        if (result == null) {
+                          setState(() => error = 'please supply a valid email');
+                        }
                       }
-                    }
-                  },
-                ),
-                SizedBox(height: 12.0),
-                Text(
-                  error,
-                  style: TextStyle(color: Colors.red, fontSize: 14.0),
-                )
-              ],
-            ),
-          )),
+                    },
+                  ),
+                  SizedBox(height: 12.0),
+                  Text(
+                    error,
+                    style: TextStyle(color: Colors.red, fontSize: 14.0),
+                  )
+                ],
+              ),
+            )),
+      ),
     );
   }
 }

@@ -43,11 +43,48 @@ class _RouteMapScreenState extends State<RouteMapScreen> {
     buildMap(_myLocation);
   }
 
+  List<Marker> rootPoints = [];
+
+  void addCurentRoutePointsToList() async {
+    rootPoints.add(
+      new Marker(
+          width: 45.0,
+          height: 45.0,
+          point: _myLocation,
+          builder: (context) => new Container(
+                child: IconButton(
+                  icon: Icon(Icons.person_pin),
+                  color: Colors.blue,
+                  iconSize: 45.0,
+                  onPressed: () {
+                    print('Marker tapped');
+                  },
+                ),
+              )),
+    );
+    widget.route.asMap().forEach((index, value) {
+      rootPoints.add(Marker(
+          width: 45.0,
+          height: 45.0,
+          point: widget.route[index],
+          builder: (context) => new Container(
+                child: IconButton(
+                  icon: Icon(Icons.assistant_photo),
+                  color: Colors.blue,
+                  iconSize: 45.0,
+                  onPressed: () {
+                    print('I fckn work');
+                  },
+                ),
+              )));
+    });
+  }
+
   void initState() {
     // NOTE: Calling this function here would crash the app.
 
     getCurrentLocation();
-
+    addCurentRoutePointsToList();
     super.initState();
   }
 
@@ -62,22 +99,7 @@ class _RouteMapScreenState extends State<RouteMapScreen> {
             urlTemplate:
                 "https://api.mapbox.com/styles/v1/volkanarisli/ck98y0o8j070n1io5b6wciro3/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoidm9sa2FuYXJpc2xpIiwiYSI6ImNrOThtOXM2cDA5NmszbXByd3Uyb3JveHYifQ.824CdensYZcPPR0Fgwu9xQ",
           ),
-          new MarkerLayerOptions(markers: [
-            new Marker(
-                width: 45.0,
-                height: 45.0,
-                point: _myLocation,
-                builder: (context) => new Container(
-                      child: IconButton(
-                        icon: Icon(Icons.person_pin),
-                        color: Colors.blue,
-                        iconSize: 45.0,
-                        onPressed: () {
-                          print('Marker tapped');
-                        },
-                      ),
-                    ))
-          ]),
+          new MarkerLayerOptions(markers: rootPoints),
           new PolylineLayerOptions(polylines: [
             new Polyline(
                 points: widget.route, strokeWidth: 5.0, color: Colors.red)

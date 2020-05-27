@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gezginmobile/services/auth.dart';
+import 'package:flutter_svg/svg.dart';
 
 class SingIn extends StatefulWidget {
   final Function toggleView;
@@ -24,7 +25,7 @@ class _SingInState extends State<SingIn> {
       appBar: AppBar(
         backgroundColor: Colors.lightBlue,
         title: Text(
-          'Sign In',
+          'Giriş Yap',
           style: TextStyle(color: Colors.white),
         ),
         actions: <Widget>[
@@ -33,64 +34,71 @@ class _SingInState extends State<SingIn> {
               widget.toggleView();
             },
             icon: Icon(Icons.person),
-            label: Text('Register'),
+            label: Text('Aramıza Katıl'),
           )
         ],
       ),
-      body: Container(
-          padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              children: <Widget>[
-                SizedBox(height: 20),
-                TextFormField(
-                  decoration: InputDecoration(
-                    hintText: 'Email',
+      body: SingleChildScrollView(
+        child: Container(
+            padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: <Widget>[
+                  SizedBox(height: 30),
+                  Image(
+                    image: AssetImage('assets/images/mask-man.png'),
+                    height: 250,
                   ),
-                  validator: (val) =>
-                      val.isEmpty ? 'Enter a valid email' : null,
-                  onChanged: (val) {
-                    setState(() => email = val);
-                  },
-                ),
-                SizedBox(height: 20),
-                TextFormField(
-                  decoration: InputDecoration(hintText: 'Password'),
-                  validator: (val) => val.length < 6
-                      ? 'Enter a password 6+ char or long'
-                      : null,
-                  obscureText: true,
-                  onChanged: (val) {
-                    setState(() => password = val);
-                  },
-                ),
-                SizedBox(height: 20),
-                RaisedButton(
-                  color: Colors.lightBlueAccent,
-                  child: Text(
-                    'Sign In',
-                    style: TextStyle(color: Colors.white),
+                  SizedBox(height: 20),
+                  TextFormField(
+                    decoration: InputDecoration(
+                      hintText: 'Email',
+                    ),
+                    validator: (val) =>
+                        val.isEmpty ? 'Enter a valid email' : null,
+                    onChanged: (val) {
+                      setState(() => email = val);
+                    },
                   ),
-                  onPressed: () async {
-                    if (_formKey.currentState.validate()) {
-                      dynamic result = await _auth.signInWithEmailAndPassword(
-                          email, password);
+                  SizedBox(height: 20),
+                  TextFormField(
+                    decoration: InputDecoration(hintText: 'Password'),
+                    validator: (val) => val.length < 6
+                        ? 'Enter a password 6+ char or long'
+                        : null,
+                    obscureText: true,
+                    onChanged: (val) {
+                      setState(() => password = val);
+                    },
+                  ),
+                  SizedBox(height: 20),
+                  RaisedButton(
+                    color: Colors.lightBlueAccent,
+                    child: Text(
+                      'Sign In',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    onPressed: () async {
+                      if (_formKey.currentState.validate()) {
+                        dynamic result = await _auth.signInWithEmailAndPassword(
+                            email, password);
 
-                      if (result == null) {
-                        setState(() => error = 'please supply a valid email');
+                        if (result == null) {
+                          setState(() => error = 'please supply a valid email');
+                        }
                       }
-                    }
-                  },
-                ),
-                SizedBox(height: 12.0),
-                Text(
-                  error,
-                  style: TextStyle(color: Colors.red, fontSize: 14.0),
-                )
-              ],
-            ),
-          )),
+                    },
+                  ),
+                  SizedBox(height: 12.0),
+                  Text(
+                    error,
+                    style: TextStyle(color: Colors.red, fontSize: 14.0),
+                  )
+                ],
+              ),
+            )),
+      ),
     );
   }
 }

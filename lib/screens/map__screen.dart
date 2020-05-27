@@ -25,7 +25,8 @@ class _MapScreenState extends State<MapScreen> {
   ];
 
   MapController controller = new MapController();
-  LatLng _myLocation = new LatLng(41.067911, 28.945787);
+  static LatLng _myLocation = new LatLng(41.067911, 28.945787);
+
   buildMap(LatLng location) {
     controller.move(location, 15.0);
   }
@@ -45,10 +46,63 @@ class _MapScreenState extends State<MapScreen> {
     getData(position.latitude, position.longitude);
   }
 
+  List<Marker> venues = [];
+
+  void addCurentLocationsToList() async {
+    venues.add(
+      new Marker(
+          width: 45.0,
+          height: 45.0,
+          point: _myLocation,
+          builder: (context) => new Container(
+                child: IconButton(
+                  icon: Icon(Icons.person_pin),
+                  color: Colors.blue,
+                  iconSize: 45.0,
+                  onPressed: () {
+                    print('i fckn work');
+                  },
+                ),
+              )),
+    );
+
+    for (final value in data['response']['venues']) {
+      venues.add(Marker(
+          width: 45.0,
+          height: 45.0,
+          point: LatLng(value['location']['lat'], value['location']['lng']),
+          builder: (context) => new Container(
+                child: IconButton(
+                  icon: Icon(Icons.pin_drop),
+                  color: Colors.blue,
+                  iconSize: 45.0,
+                  onPressed: () {
+                    print('I fckn work');
+                  },
+                ),
+              )));
+    }
+  }
+  // venues.add(Marker(
+  //             width: 45.0,
+  //             height: 45.0,
+  //             point: LatLng(value['location']['lat'], value['location']['lng']),
+  //             builder: (context) => new Container(
+  //                   child: IconButton(
+  //                     icon: Icon(Icons.person_pin),
+  //                     color: Colors.blue,
+  //                     iconSize: 45.0,
+  //                     onPressed: () {
+  //                       print('I fckn work');
+  //                     },
+  //                   ),
+  //                 )))
+
   void initState() {
     // NOTE: Calling this function here would crash the app.
 
     getCurrentLocation();
+    addCurentLocationsToList();
 
     super.initState();
   }
@@ -64,22 +118,24 @@ class _MapScreenState extends State<MapScreen> {
               urlTemplate:
                   "https://api.mapbox.com/styles/v1/volkanarisli/ck98y0o8j070n1io5b6wciro3/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoidm9sa2FuYXJpc2xpIiwiYSI6ImNrOThtOXM2cDA5NmszbXByd3Uyb3JveHYifQ.824CdensYZcPPR0Fgwu9xQ",
             ),
-            new MarkerLayerOptions(markers: [
-              new Marker(
-                  width: 45.0,
-                  height: 45.0,
-                  point: _myLocation,
-                  builder: (context) => new Container(
-                        child: IconButton(
-                          icon: Icon(Icons.person_pin),
-                          color: Colors.blue,
-                          iconSize: 45.0,
-                          onPressed: () {
-                            print('Marker tapped');
-                          },
-                        ),
-                      ))
-            ]),
+            new MarkerLayerOptions(markers: venues
+                // markers: [
+                //   new Marker(
+                //       width: 45.0,
+                //       height: 45.0,
+                //       point: _myLocation,
+                //       builder: (context) => new Container(
+                //             child: IconButton(
+                //               icon: Icon(Icons.person_pin),
+                //               color: Colors.blue,
+                //               iconSize: 45.0,
+                //               onPressed: () {
+                //                 print('i FCKN');
+                //               },
+                //             ),
+                //           ))
+                // ],
+                ),
           ]),
     );
   }
