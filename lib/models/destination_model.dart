@@ -20,7 +20,7 @@ class Destination {
 
 List<Activity> istanbulActivities = [
   Activity(
-      imageUrl: 'assets/images/mapicon.png',
+      imageUrl: 'assets/images/yarımada.png',
       name: 'Tarihi Yarım Ada',
       type: 'Yürüme',
       startTimes: ['3:00 H'],
@@ -28,7 +28,7 @@ List<Activity> istanbulActivities = [
       price: 30,
       route: yarimada),
   Activity(
-      imageUrl: 'assets/images/mapicon.png',
+      imageUrl: 'assets/images/galata.jpg',
       name: 'Modern İstanbul',
       type: 'Araba',
       startTimes: ['3:00 H'],
@@ -36,7 +36,7 @@ List<Activity> istanbulActivities = [
       price: 210,
       route: modernistanbul),
   Activity(
-      imageUrl: 'assets/images/mapicon.png',
+      imageUrl: 'assets/images/sahilturu.jpg',
       name: 'Sahil turları',
       type: 'Araba',
       startTimes: ['3:00 H'],
@@ -47,7 +47,7 @@ List<Activity> istanbulActivities = [
 
 List<Activity> izmirActivities = [
   Activity(
-      imageUrl: 'assets/images/mapicon.png',
+      imageUrl: 'assets/images/izmirtur.jpg',
       name: 'İzmir turu',
       type: 'Araba',
       startTimes: ['3:00 H'],
@@ -58,7 +58,7 @@ List<Activity> izmirActivities = [
 
 List<Activity> ankaraActivities = [
   Activity(
-      imageUrl: 'assets/images/mapicon.png',
+      imageUrl: 'assets/images/ankaratur.png',
       name: 'Ankara turu',
       type: 'Araba',
       startTimes: ['3:00 H'],
@@ -68,7 +68,7 @@ List<Activity> ankaraActivities = [
 ];
 List<Activity> adanaActivities = [
   Activity(
-      imageUrl: 'assets/images/mapicon.png',
+      imageUrl: 'assets/images/adanatur.png',
       name: 'Adana turu',
       type: 'Araba',
       startTimes: ['3:00 H'],
@@ -78,7 +78,7 @@ List<Activity> adanaActivities = [
 ];
 List<Activity> konyaActivities = [
   Activity(
-      imageUrl: 'assets/images/mapicon.png',
+      imageUrl: 'assets/images/konyatur.jpg',
       name: 'Konya turu',
       type: 'Araba',
       startTimes: ['3:00 H'],
